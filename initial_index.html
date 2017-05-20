@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <h1 align="center"> Titanic Survival Stats </h1>
+    <p>  The sinking of the RMS Titanic is one of the most infamous shipwrecks in history.  On April 15, 1912, during her maiden voyage, the Titanic sank after colliding with an iceberg. Among the 891 passengers, only 342 survived the disaster. The following visualization shows factors that likely played a role in passengers surviving this tragedy. Click on the buttons to explore passengers of which gender, what age and which class they travelled in had a higher survival rate! </p>
+  <meta charset="utf-8">
+  <script src="http://d3js.org/d3.v3.min.js"></script>
+  <script src="http://dimplejs.org/dist/dimple.v2.0.0.min.js"></script>
+    
+    <style>
+      h1 {
+        font-family: sans-serif;
+        font-size: 20px;
+      }
+
+      p {
+        width: 650px;
+        font-family: sans-serif;
+        font-size: 14px;
+      }
+      
+     #button1 {
+	position: fixed;
+	top: 150px;
+	left: 650px;
+      }
+
+      #button2 {
+	position: fixed;
+	top: 200px;
+	left: 650px;
+      }
+
+      #button3 {
+	position: fixed;
+	top: 250px;
+	left: 650px;
+      }
+    </style>
+    <div id="myButtons" style="text-align:center;">
+        <button id='button1' style="height:40px;width:120px">
+           Sex
+        </button>
+	<button id='button2' style="height:40px;width:120px">
+	   Age
+	</button>
+        <button id='button3' style="height:40px;width:120px">
+	   Class
+	</button>
+    </div>  
+  <div id="chartContainer"></div>
+  <script type="text/javascript">
+  //define the canvas size
+        var margin = 75,
+             width = 750 - margin,
+             height = 500 - margin;
+        var svg = dimple.newSvg("#chartContainer",width,height);
+	//define a title for the chart
+        svg.append("text")
+	   .attr("x", (svg[0][0].clientWidth / 2))
+	   .attr("y", 14).attr("text-anchor", "middle")
+	   .style("font-size", "14px")
+	   .style("font-weight", "bold")
+	   .text("Survival Rate by Sex");
+	// create new columns called Count and Status
+	d3.csv("titanic_data.csv", function (data) {                   		        	                              for (var i = 0; i < data.length; i++)
+		 {      	     
+		   data[i]['Count'] = 1;
+	 	   if (data[i]['Survived'] == 1)
+		   {
+		      data[i]['Status'] = "Survived";
+		   }
+		   else
+	  	   {
+		      data[i]['Status'] = "Not Survived";
+		   }
+		 }       
+
+       // create the default chart
+       var myChart = new dimple.chart(svg, data);
+       // define x and y axis
+       var x = myChart.addCategoryAxis("x", "Sex");
+       x.addOrderRule("Sex");
+       var y =  myChart.addMeasureAxis("y", "Count");
+       var stat = myChart.addSeries("Status", dimple.plot.bar);
+       x.fontSize = "auto";
+       
+       // add legend
+       myChart.addLegend(100, 10, 530, 20, "right");
+       
+       myChart.draw(1000);     
+      });
+ 
+     </script>
+
+     <script type="text/javascript">
+       // create chart for Sex vs Count if button1 is clicked
+       d3.select("#button1").on("click", function() {
+       d3.select("svg").remove();
+       var svg = dimple.newSvg("#chartContainer",width,height);
+       // create a title
+       svg.append("text")
+	   .attr("x", (svg[0][0].clientWidth / 2))
+	   .attr("y", 14).attr("text-anchor", "middle")
+	   .style("font-size", "14px")
+	   .style("font-weight", "bold")
+	   .text("Survival Rate by Sex");
+       // create new columns Count and Status
+       d3.csv("titanic_data.csv", function (data) {                    		        	           
+         for (var i = 0; i < data.length; i++)
+      	      {
+		data[i]['Count'] = 1;
+		if (data[i]['Survived'] == 1)
+		{
+		    data[i]['Status'] = "Survived";
+		}
+		else
+		{
+		    data[i]['Status'] = "Not Survived";
+		}
+  	 }
+       var myChart = new dimple.chart(svg, data);
+       // define x and y axis
+       var x = myChart.addCategoryAxis("x", "Sex");
+       x.addOrderRule("Sex");
+       var y =  myChart.addMeasureAxis("y", "Count");
+       var stat = myChart.addSeries("Status", dimple.plot.bar);
+       x.fontSize = "auto";
+     
+       
+       // add legend
+       myChart.addLegend(100, 10, 530, 20, "right");          
+       myChart.draw(1000);
+	});
+      });
+
+      //create chart Age vs Count if button2 is clicked
+      d3.select("#button2").on("click", function() {
+      d3.select("svg").remove();
+      var svg = dimple.newSvg("#chartContainer",width,height);
+      // create a title
+      svg.append("text")
+	   .attr("x", (svg[0][0].clientWidth / 2))
+	   .attr("y", 14).attr("text-anchor", "middle")
+	   .style("font-size", "14px")
+	   .style("font-weight", "bold")
+	   .text("Survival Rate by Age");
+      //create new columns Count and Status
+      d3.csv("titanic_data.csv", function (data) {                    		        	           
+         for (var i = 0; i < data.length; i++)
+      	      {
+		data[i]['Count'] = 1;
+		if (data[i]['Survived'] == 1)
+		{
+		    data[i]['Status'] = "Survived";
+		}
+		else
+		{
+		    data[i]['Status'] = "Not Survived";
+		}
+  	 }
+      var myChart = new dimple.chart(svg, data);
+      //create new column called AgeGroup
+      for (var i = 0; i < data.length; i++)
+      	   {
+	     if (data[i]['Age'] <= 10)
+	     {
+		data[i]['AgeGroup'] = "Child";
+	     }
+	     else if (data[i]['Age'] <= 18)
+	     {
+		data[i]['AgeGroup'] = "Youth";
+	     }
+	     else if (data[i]['Age'] <= 65)
+             {
+		data[i]['AgeGroup'] = "Adult";
+	     }
+	     else 
+	     {
+		data[i]['AgeGroup'] = "Senior";
+	     }
+  	   }
+       // define x and y axes
+       var x = myChart.addCategoryAxis("x", "AgeGroup");
+       x.addOrderRule(['Child','Youth','Adult','Senior']);
+       var y =  myChart.addMeasureAxis("y", "Count");
+
+       var stat = myChart.addSeries("Status", dimple.plot.bar);
+       x.fontSize = "auto";
+       
+       //add legend
+       myChart.addLegend(100, 10, 530, 20, "right");            
+       myChart.draw(1000);
+	});
+      });
+
+      // create chart Pclass vs Count if button3 is clicked
+      d3.select("#button3").on("click", function() {
+      d3.select("svg").remove();
+      var svg = dimple.newSvg("#chartContainer",width,height);  
+      //create a title
+      svg.append("text")
+	   .attr("x", (svg[0][0].clientWidth / 2))
+	   .attr("y", 14).attr("text-anchor", "middle")
+	   .style("font-size", "14px")
+	   .style("font-weight", "bold")
+	   .text("Survival Rate by Pclass");
+      // read data and create new cols      
+      d3.csv("titanic_data.csv", function (data) {
+         for (var i = 0; i < data.length; i++)
+      	      {
+		data[i]['Count'] = 1;
+		if (data[i]['Survived'] == 1)
+		{
+		    data[i]['Status'] = "Survived";
+		}
+		else
+		{
+		    data[i]['Status'] = "Not Survived";
+		}
+  	 }           		        	           
+      var myChart = new dimple.chart(svg, data);
+      //define x and y axes
+      var x = myChart.addCategoryAxis("x", "Pclass");
+      x.addOrderRule("Pclass");
+      var y =  myChart.addMeasureAxis("y", "Count");
+      var stat = myChart.addSeries("Status", dimple.plot.bar);
+      x.fontSize = "auto";   
+      // create legend
+      myChart.addLegend(100, 10, 530, 20, "right");          
+      myChart.draw(1000);
+	});
+      });
+  </script>
+</head>
+</html>
+  
