@@ -2,7 +2,7 @@
 <html>
 <head>
     <h1 align="center"> Titanic Survival Stats </h1>
-    <p>  The sinking of the RMS Titanic is one of the most infamous shipwrecks in history.  On April 15, 1912, during her maiden voyage, the Titanic sank after colliding with an iceberg. Among the 891 passengers, only 342 survived the disaster. The following visualization shows factors that likely played a role in passengers surviving this tragedy. Click on the buttons to explore passengers of which gender, what age and which class they travelled in had a higher survival rate! </p>
+    <p>  The sinking of the RMS Titanic is one of the most infamous shipwrecks in history.  On April 15, 1912, during her maiden voyage, the Titanic sank after colliding with an iceberg. Among the 891 passengers, only 342 survived the disaster. The following visualization shows factors that likely played a role in passengers surviving this tragedy.  Being female, young (child, youth or adult)  and travelling in 1st class were favorable factors for survival. Click on the buttons to explore! </p>
     <meta charset="utf-8">
     <script src="http://d3js.org/d3.v3.min.js"></script>
     <script src="http://dimplejs.org/dist/dimple.v2.0.0.min.js"></script>
@@ -83,10 +83,10 @@
 	   .style("font-size", "14px")
 	   .style("font-weight", "bold")
 	   .text("Survival Rate by Sex");
-	// create new columns called Count and Status
+	// create new columns called Survival Rate and Status
 	d3.csv("titanic_data.csv", function (data) {                   		        	                              for (var i = 0; i < data.length; i++)
 		 {      	     
-		   data[i]['Count'] = 1;
+		   data[i]['Survival Rate'] = 1;
 	 	   if (data[i]['Survived'] == 1)
 		   {
 		      data[i]['Status'] = "Survived";
@@ -102,7 +102,7 @@
        // define x and y axis
        var x = myChart.addCategoryAxis("x", "Sex");
        x.addOrderRule("Sex");
-       var y =  myChart.addPctAxis("y", "Count");
+       var y =  myChart.addPctAxis("y", "Survival Rate");
        var stat = myChart.addSeries("Status", dimple.plot.bar);
        x.fontSize = "auto";
        stat.afterDraw = function (shape, data) {
@@ -137,7 +137,7 @@
      </script>
 
      <script type="text/javascript">
-       // create chart for Sex vs Count if button1 is clicked
+       // create chart for Sex vs Survival Rate if button1 is clicked
        d3.select("#button1").on("click", function() {
        d3.select("svg").remove();
        var svg = dimple.newSvg("#chartContainer",width,height);
@@ -148,11 +148,11 @@
 	   .style("font-size", "14px")
 	   .style("font-weight", "bold")
 	   .text("Survival Rate by Sex");
-       // create new columns Count and Status
+       // create new columns Survival Rate and Status
        d3.csv("titanic_data.csv", function (data) {                    		        	           
          for (var i = 0; i < data.length; i++)
       	      {
-		data[i]['Count'] = 1;
+		data[i]['Survival Rate'] = 1;
 		if (data[i]['Survived'] == 1)
 		{
 		    data[i]['Status'] = "Survived";
@@ -166,7 +166,7 @@
        // define x and y axis
        var x = myChart.addCategoryAxis("x", "Sex");
        x.addOrderRule("Sex");
-       var y =  myChart.addPctAxis("y", "Count");
+       var y =  myChart.addPctAxis("y", "Survival Rate");
        var stat = myChart.addSeries("Status", dimple.plot.bar);
        x.fontSize = "auto";
        stat.afterDraw = function (shape, data) {
@@ -199,7 +199,7 @@
 	});
       });
 
-      //create chart Age vs Count if button2 is clicked
+      //create chart Age vs Survival Rate if button2 is clicked
       d3.select("#button2").on("click", function() {
       d3.select("svg").remove();
       var svg = dimple.newSvg("#chartContainer",width,height);
@@ -210,11 +210,11 @@
 	   .style("font-size", "14px")
 	   .style("font-weight", "bold")
 	   .text("Survival Rate by Age");
-      //create new columns Count and Status
+      //create new columns Survival Rate and Status
       d3.csv("titanic_data.csv", function (data) {                    		        	           
          for (var i = 0; i < data.length; i++)
       	      {
-		data[i]['Count'] = 1;
+		data[i]['Survival Rate'] = 1;
 		if (data[i]['Survived'] == 1)
 		{
 		    data[i]['Status'] = "Survived";
@@ -248,7 +248,7 @@
        // define x and y axes
        var x = myChart.addCategoryAxis("x", "AgeGroup");
        x.addOrderRule(['Child','Youth','Adult','Senior']);
-       var y =  myChart.addPctAxis("y", "Count");
+       var y =  myChart.addPctAxis("y", "Survival Rate");
 
        var stat = myChart.addSeries("Status", dimple.plot.bar);
        x.fontSize = "auto";
@@ -282,7 +282,7 @@
 	});
       });
 
-      // create chart Pclass vs Count if button3 is clicked
+      // create chart Pclass vs Survival Rate if button3 is clicked
       d3.select("#button3").on("click", function() {
       d3.select("svg").remove();
       var svg = dimple.newSvg("#chartContainer",width,height);  
@@ -297,7 +297,7 @@
       d3.csv("titanic_data.csv", function (data) {
          for (var i = 0; i < data.length; i++)
       	      {
-		data[i]['Count'] = 1;
+		data[i]['Survival Rate'] = 1;
 		if (data[i]['Survived'] == 1)
 		{
 		    data[i]['Status'] = "Survived";
@@ -311,7 +311,7 @@
       //define x and y axes
       var x = myChart.addCategoryAxis("x", "Pclass");
       x.addOrderRule("Pclass");
-      var y =  myChart.addPctAxis("y", "Count");
+      var y =  myChart.addPctAxis("y", "Survival Rate");
       var stat = myChart.addSeries("Status", dimple.plot.bar);
       x.fontSize = "auto";
       stat.afterDraw = function (shape, data) {

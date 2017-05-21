@@ -5,17 +5,17 @@ The visualization explains the survival rate of the passengers based on differen
 
 Design
 
-A normalized stacked-bar chart was created for three scenarios. I used a stacked bar chart since there was only two groups to compare (Survived or Not Survived) and x-axis was discrete.
-1. 'Sex' and the 'count' of passengers
-2. 'Age' and the 'count' of passengers
-3. 'Pclass' and the 'count' of passengers
+A normalized stacked-bar chart was created for three scenarios. Three scenarios were used instead of just one because the user can easily navigate by just clicking the buttons and makes it much easier to understand. I used a stacked bar chart since there was only two groups to compare (Survived or Not Survived) and x-axis was discrete.
+1. 'Sex' and the 'Survival Rate' of passengers
+2. 'Age' and the 'Survival Rate' of passengers
+3. 'Pclass' and the 'Survival Rate' of passengers
 
-The graphs also show the count of the number of passengers who survived and who did not survive.By clicking on the buttons the reader can navigate through the three scenarios and get a good understanding of which factors likely helped in the survival and reach at their own conclusion. From the bar charts the reader can find that being female, young (child, youth or adult)  and travelling in 1st class were favorable factors for survival.
+The graphs also show the count of the number of passengers who survived and who did not survive. I decided to include the counts so that it makes it much easier for the reader to understand how many passengers survived and how many did not survive just by looking at the graphs rather than seeing just a percentage. By clicking on the buttons the reader can navigate through the three scenarios and get a good understanding of which factors likely helped in the survival and reach at their own conclusion. From the bar charts the reader can find that being female, young (child, youth or adult)  and travelling in 1st class were favorable factors for survival.
 
-The code for this visualization is written using D3 and Dimple libraries. First I defined the chart dimensions, created three new columns called 'Status', 'AgeGroup' and 'Count'.The 'Status' column has two values - Survived and "Not Survived', the column 'AgeGroup' has four groups - child, youth, adult and senior and 'Count' is the number of passengers. The charts were plotted with the 'count' on the y-axis and 'Sex', 'AgeGroup' and 'Pclass' on x-axis for the three charts respectively. Then 3 buttons were created to help the reader navigate through the three charts. A legend is added that aids the understanding of the chart.
+The code for this visualization is written using D3 and Dimple libraries. First I defined the chart dimensions, created three new columns called 'Status', 'AgeGroup' and 'Survival Rate'.The 'Status' column has two values - Survived and "Not Survived', the column 'AgeGroup' has four groups - child, youth, adult and senior and 'Survival Rate' is the represents the survival rate (survived or not survived) of passengers. The charts were plotted with the 'Survival Rate' on the y-axis and 'Sex', 'AgeGroup' and 'Pclass' on x-axis for the three charts respectively. Then 3 buttons were created to help the reader navigate through the three charts. A legend is added that aids the understanding of the chart.
 
 After receiving the feeback, I changed the following:
-1. The default colors of the stacked bar chart from blue/orange to blue/gray.
+1. The default colors of the stacked bar chart from blue/orange to blue/gray to improve the aesthetic and make the narrative more compelling.
 2. Added the values of survived or not survived in the bar graph. 
 3. Made the button size smaller.
 4. Used percentage measure for y-axis so we can easily see the numbers.
